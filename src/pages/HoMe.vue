@@ -1,8 +1,10 @@
 <template>
   <div id="home">
+    <nav class="orange darken-2">
+      <div class="nav-wrapper"></div>
+    </nav>
     <img alt="Vue logo" src="../assets/logo.png" />
     <TarefaList msg="Welcome to Your Vue.js Home" :tasks="listaDeTarefas" />
-    <p>{{ listaDeTarefas }}</p>
   </div>
 </template>
 
@@ -30,13 +32,4 @@ export default {
 };
 </script>
 
-<style>
-#home {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
+<style></style>
