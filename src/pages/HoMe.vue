@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import axios from "axios";
+import TasksApi from "../TasksApi.js";
 import TarefaList from "../components/TarefaList.vue";
 
 export default {
@@ -23,10 +23,8 @@ export default {
     };
   },
   created() {
-    console.log("terminei de carregar a página");
-    axios.get("http://localhost:3000/tasks/").then((response) => {
-      console.log(response.data);
-      this.listaDeTarefas = response.data;
+    TasksApi.getTasks((data) => {
+      this.listaDeTarefas = data;
     });
   },
 };
