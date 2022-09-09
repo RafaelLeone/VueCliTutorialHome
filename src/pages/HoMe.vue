@@ -12,31 +12,20 @@
     <div v-show="exibir.lista">
       <TarefaList msg="Welcome to Your Vue.js Home" :tasks="listaDeTarefas" />
     </div>
-
-    <div v-show="exibir.forms">
-      <h3>Cadastrar nova tarefa</h3>
-      <input
-        type="text"
-        name="title"
-        id="title"
-        placeholder="Digite o nome da tarefa"
-        v-model="forms.title"
-      />
-      <button class="btn" @click="salvarTarefa">Salvar Tarefa</button>
-
-      <button class="btn" @click="cancelarTarefa">Cancelar</button>
-    </div>
+    <TarefaForm @salvarClick="recebiSalvar" :titulo="forms.title"></TarefaForm>
   </div>
 </template>
 
 <script>
 import TasksApi from '../TasksApi.js'
 import TarefaList from '../components/TarefaList.vue'
+import TarefaForm from '../components/TarefaForm.vue'
 
 export default {
   name: 'HoMe',
   components: {
     TarefaList,
+    TarefaForm,
   },
   data: () => {
     return {
@@ -45,7 +34,7 @@ export default {
         forms: false,
       },
       forms: {
-        title: '',
+        title: 'Cadastrar nova tarefa',
       },
       listaDeTarefas: ['A', 'B', 'C'],
     }
@@ -60,19 +49,11 @@ export default {
       this.exibir.forms = true
       this.exibir.lista = false
     },
-    cancelarTarefa() {
-      this.exibir.forms = false
-      this.exibir.lista = true
-    },
-    salvarTarefa() {
-      this.exibir.forms = false
-      this.exibir.lista = true
-      const novaTarefa = {
-        title: this.forms.title,
-        date: new Date().toLocaleDateString('pt'),
-      }
+    recebiSalvar(novaTarefa) {
       TasksApi.createTask(novaTarefa, () => {
         this.listarTarefas()
+        this.exibir.forms = false
+        this.exibir.lista = true
       })
     },
   },
