@@ -11,6 +11,7 @@
           <span class="task-badge right-align">{{ t.project }}</span>
         </h5>
         <button class="btn btn-small" @click="editarClick(t.id)">EDIT</button>
+        <button class="btn btn-small" @click="deleteClick(t.id)">DELETE</button>
       </li>
     </ul>
   </div>
@@ -26,6 +27,9 @@ export default {
   methods: {
     editarClick(tarefaId) {
       this.$emit('editarClick', tarefaId)
+    },
+    deleteClick(tarefaId) {
+      this.$emit('deleteClick', tarefaId)
     },
   },
 }

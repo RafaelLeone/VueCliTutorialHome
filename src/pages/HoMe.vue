@@ -12,6 +12,7 @@
     <div v-show="exibir.lista">
       <TarefaList
         @editarClick="recebiEditar"
+        @deleteClick="recebiDeletar"
         msg="Welcome to Your Vue.js Home"
         :tasks="listaDeTarefas"
       />
@@ -91,6 +92,12 @@ export default {
         this.form.project = task.project
         this.exibir.forms = true
         this.exibir.lista = false
+      })
+    },
+    recebiDeletar(tarefaId) {
+      console.log('cheguei', tarefaId)
+      TasksApi.deleteTask(tarefaId, () => {
+        this.listarTarefas()
       })
     },
   },
