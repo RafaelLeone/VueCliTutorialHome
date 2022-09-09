@@ -14,12 +14,12 @@
 
 <script>
 export default {
-  name: "TarefaList",
+  name: 'TarefaList',
   props: {
     msg: String,
     tasks: Array,
   },
-};
+}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
