@@ -21,6 +21,7 @@
         v-model="forms.title"
       />
       <button class="btn" @click="salvarTarefa">Salvar Tarefa</button>
+
       <button @click="cancelarTarefa">Cancelar</button>
     </div>
   </div>
@@ -48,6 +49,11 @@ export default {
     }
   },
   methods: {
+    listarTarefas() {
+      TasksApi.getTasks((data) => {
+        this.listaDeTarefas = data
+      })
+    },
     mostrarForm() {
       this.exibir.forms = true
       this.exibir.lista = false
@@ -64,15 +70,13 @@ export default {
         title: this.forms.title,
         date: new Date().toLocaleDateString('pt'),
       }
-      TasksApi.createTask(novaTarefa, (resp) => {
-        console.log('deu certo', resp)
+      TasksApi.createTask(novaTarefa, () => {
+        this.listarTarefas()
       })
     },
   },
   created() {
-    TasksApi.getTasks((data) => {
-      this.listaDeTarefas = data
-    })
+    this.listarTarefas()
   },
 }
 </script>
