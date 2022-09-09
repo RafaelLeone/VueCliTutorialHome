@@ -65,7 +65,6 @@ export default {
       this.exibir.lista = true
     },
     salvarTarefa() {
-      console.log('sdsd')
       this.exibir.forms = false
       this.exibir.lista = true
       const novaTarefa = {
