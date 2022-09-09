@@ -1,7 +1,10 @@
 <template>
   <div class="hello">
     <h1>{{ msg }}</h1>
-    <ul class="collection">
+    <ul
+      style="display: flex; flex-direction: column-reverse"
+      class="collection"
+    >
       <li class="collection-item" v-for="t in tasks" :key="t.id">
         <h5>
           {{ t.title }}

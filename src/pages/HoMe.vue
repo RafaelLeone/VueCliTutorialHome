@@ -5,7 +5,9 @@
       <div class="nav-wrapper"></div>
     </nav>
     <div>
-      <button @click="mostrarForm">Adicionar</button>
+      <button class="btn" @click="mostrarForm" v-show="exibir.lista">
+        Adicionar
+      </button>
     </div>
     <div v-show="exibir.lista">
       <TarefaList msg="Welcome to Your Vue.js Home" :tasks="listaDeTarefas" />
@@ -22,7 +24,7 @@
       />
       <button class="btn" @click="salvarTarefa">Salvar Tarefa</button>
 
-      <button @click="cancelarTarefa">Cancelar</button>
+      <button class="btn" @click="cancelarTarefa">Cancelar</button>
     </div>
   </div>
 </template>
