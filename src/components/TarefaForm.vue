@@ -1,24 +1,33 @@
 <template>
   <div>
-    <h3>{{ titulo }}</h3>
+    <h3>{{ title }}</h3>
     <input
       type="text"
-      name="title"
-      id="title"
+      name="titulo"
+      :value="titulo"
+      @input="form.titulo = $event.target.value"
+      id="titulo"
       placeholder="Digite o nome da tarefa"
-      v-model="forms.title"
     />
-    <button class="btn" @click="salvarTarefa">Salvar Tarefa</button>
+    <input
+      type="text"
+      name="project"
+      id="project"
+      placeholder="Digite o nome da tag"
+      :value="project"
+      @input="form.project = $event.target.value"
+    />
+    <button class="btn" @click="salvarTarefa">{{ btn }}</button>
   </div>
 </template>
 
 <script>
 export default {
-  props: ['titulo'],
+  props: ['titulo', 'title', 'project', 'btn', 'id'],
   data: () => {
     return {
-      forms: {
-        title: '',
+      form: {
+        titulo: '',
         project: '',
       },
     }
@@ -27,11 +36,16 @@ export default {
   methods: {
     salvarTarefa() {
       const novaTarefa = {
-        title: this.forms.title,
-        project: this.forms.project,
-        date: new Date().toLocaleDateString('pt'),
+        titulo: this.form.titulo,
+        project: this.form.project,
       }
-      this.$emit('salvarClick', novaTarefa)
+      if (this.btn == 'Adicionar') {
+        novaTarefa.date = new Date().toLocaleDateString('pt')
+        this.$emit('salvarClick', novaTarefa)
+      } else {
+        novaTarefa.id = this.id
+        this.$emit('alterarClick', novaTarefa)
+      }
     },
   },
 }

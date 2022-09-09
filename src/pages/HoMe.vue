@@ -10,9 +10,23 @@
       </button>
     </div>
     <div v-show="exibir.lista">
-      <TarefaList msg="Welcome to Your Vue.js Home" :tasks="listaDeTarefas" />
+      <TarefaList
+        @editarClick="recebiEditar"
+        msg="Welcome to Your Vue.js Home"
+        :tasks="listaDeTarefas"
+      />
     </div>
-    <TarefaForm @salvarClick="recebiSalvar" :titulo="forms.title"></TarefaForm>
+    <div v-show="exibir.forms">
+      <TarefaForm
+        :id="form.id"
+        :btn="form.btn"
+        @salvarClick="recebiSalvar"
+        @alterarClick="recebiAlterar"
+        :titulo="form.titulo"
+        :title="form.title"
+        :project="form.project"
+      ></TarefaForm>
+    </div>
   </div>
 </template>
 
@@ -33,7 +47,11 @@ export default {
         lista: true,
         forms: false,
       },
-      forms: {
+      form: {
+        id: 0,
+        titulo: '',
+        project: '',
+        btn: 'Adicionar',
         title: 'Cadastrar nova tarefa',
       },
       listaDeTarefas: ['A', 'B', 'C'],
@@ -54,6 +72,25 @@ export default {
         this.listarTarefas()
         this.exibir.forms = false
         this.exibir.lista = true
+      })
+    },
+    recebiAlterar(tarefa) {
+      TasksApi.updateTask(tarefa, () => {
+        this.listarTarefas()
+        this.exibir.forms = false
+        this.exibir.lista = true
+      })
+    },
+    recebiEditar(tarefaId) {
+      console.log('chegou a ' + tarefaId)
+      this.form.btn = 'Alterar'
+      this.form.title = 'Alterar tarefa'
+      TasksApi.getTask(tarefaId, (task) => {
+        this.form.id = task.id
+        this.form.titulo = task.titulo
+        this.form.project = task.project
+        this.exibir.forms = true
+        this.exibir.lista = false
       })
     },
   },
